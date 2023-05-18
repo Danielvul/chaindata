@@ -1,0 +1,34 @@
+name: Validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: cardinalby/schema-validator-action@v3
+        with:
+          file: 'chaindata.json|testnets-chaindata.json'
+          schema: 'schemas/json/chaindata.json'
+
+      - uses: cardinalby/schema-validator-action@v3
+        with:
+          file: 'evm-networks.json'
+          schema: 'schemas/json/evm-networks.json'
+
+      - uses: cardinalby/schema-validator-action@v3
+        with:
+          file: 'tokens.json'
+          schema: 'schemas/json/tokens.json'
+
+      - uses: cardinalby/schema-validator-action@v3
+        with:
+          file: 'tokens-buyable.json'
+          schema: 'schemas/json/ids.json'
